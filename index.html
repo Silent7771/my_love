@@ -6,10 +6,10 @@
     <title>Lab Spa — Натуральная косметика | Виктория Богуш</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap');
-        *{margin:0;padding:0;box-sizing:border-box;cursor:none}
+        *{margin:0;padding:0;box-sizing:border-box}
         :root{--fd:#1a2e1a;--fm:#3d6b3d;--fg:#7cb87c;--ml:#8fb88a;--bl:#c75b9b;--gm:#c9a84c;--gl:#e8d18c;--mn:#0d1a0d;--tl:#e8e0d4;--tm:#a09880;--bd:#a02d6b}
         html{scroll-behavior:smooth}
-        body{font-family:'Montserrat',sans-serif;background:var(--mn);color:var(--tl);overflow-x:hidden}
+        body{font-family:'Montserrat',sans-serif;background:var(--mn);color:var(--tl);overflow-x:hidden;cursor:none}
         .cursor-wand{position:fixed;width:28px;height:28px;pointer-events:none;z-index:100000;transform:translate(-50%,-50%);font-size:24px;filter:drop-shadow(0 0 12px rgba(201,168,76,.8))}
         .cursor-glow{position:fixed;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.3)0%,transparent 70%);pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:.3s}
         .cursor-glow.hover{width:65px;height:65px;background:radial-gradient(circle,rgba(124,184,124,.4)0%,rgba(201,168,76,.2)50%,transparent 70%)}
@@ -80,6 +80,8 @@
         .nav-links a:hover::after,.nav-links a.active::after{width:100%}
         .nav-links a.active{color:var(--gm)}
         .nav-right{display:flex;align-items:center;gap:12px}
+        .nav-auth{background:linear-gradient(135deg,var(--fm),#2d4a2d);color:var(--gl);border:1px solid rgba(124,184,124,.15);padding:6px 14px;border-radius:50px;font-size:.68rem;letter-spacing:1px;transition:.3s;display:inline-flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif}
+        .nav-auth:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,74,45,.4)}
         .nav-cart{position:relative;background:none;border:1.5px solid rgba(201,168,76,.18);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:.3s;color:var(--gm)}
         .nav-cart:hover{background:rgba(201,168,76,.08);border-color:var(--gm)}
         .cbdg{position:absolute;top:-3px;right:-3px;background:var(--bd);color:#fff;font-size:.52rem;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:500;transition:.3s}
@@ -256,7 +258,9 @@
         .code-inputs{display:flex;gap:6px;justify-content:center}
         .code-inp{width:40px;height:46px;border-radius:10px;border:1.5px solid rgba(124,184,124,.1);background:rgba(26,46,26,.5);font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gm);text-align:center;outline:none;transition:.3s}
         .code-inp:focus{border-color:var(--gm);box-shadow:0 0 10px rgba(201,168,76,.12)}
-        .code-timer{font-size:.64rem;color:var(--tm)}.code-resend{background:none;border:none;color:var(--gm);font-size:.64rem;text-decoration:underline;transition:.3s}.code-resend:disabled{opacity:.4;color:var(--tm)}
+        .code-timer{font-size:.64rem;color:var(--tm)}.code-resend{background:none;border:none;color:var(--gm);font-size:.64rem;text-decoration:underline;transition:.3s;margin-bottom:8px}.code-resend:disabled{opacity:.4;color:var(--tm)}
+        .auth-cancel{background:transparent;border:1px solid rgba(201,168,76,.15);color:var(--gm);padding:8px 16px;border-radius:8px;font-size:.68rem;transition:.3s;font-family:'Montserrat',sans-serif}
+        .auth-cancel:hover{background:rgba(201,168,76,.05);border-color:var(--gm)}
         .order-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:99996;display:none;align-items:center;justify-content:center}
         .order-overlay.open{display:flex}
         .order-card{background:linear-gradient(135deg,#0f200f,#1a2e1a);border:1px solid rgba(201,168,76,.08);border-radius:22px;padding:32px 28px;max-width:420px;width:90%;text-align:center;animation:fiu .5s ease}
@@ -330,14 +334,12 @@
     <ul class="nav-links" id="navLinks">
         <li><a href="#" data-page="home" class="active" onclick="showPage('home');return false">Главная</a></li>
         <li><a href="#" data-page="products" onclick="showPage('products');return false">Продукты</a></li>
-        <li><a href="#" data-page="about" onclick="showPage('about');return false">О нас</a></li>
+        <li><a href="#" data-page="about" onclick="showPage('about');return false">О НЕЙ</a></li>
         <li><a href="#" data-page="reviews" onclick="showPage('reviews');return false">Отзывы</a></li>
-        <li><a href="#" data-page="contact" onclick="showPage('contact');return false">Контакты</a></li>
     </ul>
     <div class="nav-right">
+        <button class="nav-auth" id="navAuth" onclick="openAuth()" style="display:inline-flex">👤 Войти</button>
         <div class="upill" id="upill"><span class="ud"></span><span id="uName"></span></div>
-        <a href="https://instagram.com/lab_spa_" target="_blank" class="nav-social">📷</a>
-        <a href="https://t.me/lab_spa" target="_blank" class="nav-social">💬</a>
         <button class="nav-cart" onclick="toggleCart()">🛒<span class="cbdg" id="cBdg">0</span></button>
         <button class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
     </div>
@@ -373,6 +375,7 @@
             </div>
             <div class="code-timer" id="codeTimer">Повтор через <span id="timerSec">60</span>с</div>
             <button class="code-resend" id="codeResend" disabled onclick="resendCode()">Отправить снова</button>
+            <button class="auth-cancel" onclick="cancelAuth()">← Изменить способ входа</button>
         </div>
         <div class="auth-form" id="afIG" style="display:none">
             <input class="auth-inp" id="inpIG" type="text" placeholder="@ваш_instagram">
@@ -402,11 +405,10 @@
     <div class="sbg"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80" alt=""><div class="sbg-ov hov"></div></div>
     <div class="hp"><div class="mp g"></div><div class="mp gr"></div><div class="mp pk"></div><div class="mp g"></div><div class="mp gr"></div><div class="mp pk"></div></div>
     <div class="hc"><div class="hi">
-        <div class="hbd">👩‍🔬 Химик-технолог • Беларусь</div>
+        <div class="hbd">👩‍🔬 Произведено химиком-технологом</div>
         <h1 class="home-title"><span class="hg">Lab Spa</span><br>Виктория <span class="hf">Богуш</span></h1>
         <p class="hsub">Натуральная косметика и мыло с нуля</p>
         <div class="hdetail">Избавлю от перхоти и бережно сохраню красоту 🌿<br><strong>Широкая линейка продукции</strong> • За подбором ухода — в директ</div>
-        <div class="hlux">Произведено химиком-технологом</div>
         <div class="hbtns">
             <a href="#" class="btn btn-p" onclick="showPage('products');return false">🧴 Каталог продукции</a>
             <a href="https://t.me/lab_spa" target="_blank" class="btn btn-tg">💬 Telegram</a>
@@ -428,9 +430,9 @@
 <div class="page" id="pg-about">
     <div class="sbg"><img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=1920&q=80" alt=""><div class="sbg-ov aov"></div></div>
     <div class="sc">
-        <div class="sh reveal"><div class="sl">✦ о нас ✦</div><h2 class="stitle">Виктория Богуш</h2></div>
+        <div class="sh reveal"><div class="sl">✦ о ней ✦</div><h2 class="stitle">Виктория Богуш</h2></div>
         <div class="about-hero reveal">
-            <div class="about-photo"><img src="https://i.ibb.co/spXJdSX7/image.png" alt="Виктория Богуш"></div>
+            <div class="about-photo"><img src="https://i.ibb.co/gM4f9YH1/vika-o-sebe.png" alt="Виктория Богуш"></div>
             <div class="about-info">
                 <h3>Химик-технолог, создающий натуральную косметику с любовью</h3>
                 <p>Виктория — профессиональный химик-технолог из Беларуси. Каждый продукт Lab Spa создаётся вручную с глубоким знанием химии и искренней заботой о вашей коже.</p>
@@ -452,27 +454,11 @@
         <div class="sh reveal"><div class="sl">✦ отзывы ✦</div><h2 class="stitle">Отзывы наших клиентов</h2></div>
         <div class="rgrid">
             <div class="rc reveal rd1">
-                <div class="rc-img"><img src="https://i.ibb.co/HDVkKF8J/image.png" alt="Отзыв" loading="lazy"></div>
+                <div class="rc-img"><img src="https://i.ibb.co/WWcr7Ww2/1.png" alt="Отзыв" loading="lazy"></div>
                 <div class="rc-body"><div class="rs">★★★★★</div><p class="rt">Реальный отзыв от клиента Lab Spa</p></div>
             </div>
             <div class="rc reveal rd2">
-                <div class="rc-img"><img src="https://i.ibb.co/j92mrXz8/image.png" alt="Отзыв" loading="lazy"></div>
-                <div class="rc-body"><div class="rs">★★★★★</div><p class="rt">Реальный отзыв от клиента Lab Spa</p></div>
-            </div>
-            <div class="rc reveal rd3">
-                <div class="rc-img"><img src="https://i.ibb.co/B06DH16/image.png" alt="Отзыв" loading="lazy"></div>
-                <div class="rc-body"><div class="rs">★★★★★</div><p class="rt">Реальный отзыв от клиента Lab Spa</p></div>
-            </div>
-            <div class="rc reveal rd1">
-                <div class="rc-img"><img src="https://i.ibb.co/yjprxQX/image.png" alt="Отзыв" loading="lazy"></div>
-                <div class="rc-body"><div class="rs">★★★★★</div><p class="rt">Реальный отзыв от клиента Lab Spa</p></div>
-            </div>
-            <div class="rc reveal rd2">
-                <div class="rc-img"><img src="https://i.ibb.co/0VKg9pJX/image.png" alt="Отзыв" loading="lazy"></div>
-                <div class="rc-body"><div class="rs">★★★★★</div><p class="rt">Реальный отзыв от клиента Lab Spa</p></div>
-            </div>
-            <div class="rc reveal rd3">
-                <div class="rc-img"><img src="https://i.ibb.co/svJMPvvt/image.png" alt="Отзыв" loading="lazy"></div>
+                <div class="rc-img"><img src="https://i.ibb.co/yFG5gJ5Q/2.png" alt="Отзыв" loading="lazy"></div>
                 <div class="rc-body"><div class="rs">★★★★★</div><p class="rt">Реальный отзыв от клиента Lab Spa</p></div>
             </div>
         </div>
@@ -480,33 +466,25 @@
 </div>
 
 <!-- CONTACT — реальное фото вместо эмодзи -->
-<div class="page" id="pg-contact">
-    <div class="sbg"><img src="https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=1920&q=80" alt=""><div class="sbg-ov cont-ov"></div></div>
-    <div class="sc" style="display:flex;align-items:center;justify-content:center;min-height:100vh">
-        <div><div class="sh reveal"><div class="sl">✦ контакты ✦</div><h2 class="stitle">Свяжитесь с Викторией</h2></div>
-        <div class="cc reveal">
-            <img class="contact-photo" src="https://i.ibb.co/twvPNb3w/image.png" alt="Виктория Богуш">
-            <p>Для подбора ухода, заказа продукции или консультации — пишите в Telegram или Instagram</p>
-            <div class="cl">
-                <a href="https://t.me/lab_spa" target="_blank" class="btn btn-tg">💬 t.me/lab_spa</a>
-                <a href="https://instagram.com/lab_spa_" target="_blank" class="btn btn-ig">📷 @lab_spa_</a>
-            </div>
-        </div></div>
-    </div>
-</div>
 
 <footer class="footer">
     <div class="ft-grid">
         <div class="ft-brand"><h3>👩‍🔬 Lab Spa</h3><p>Виктория Богуш • Химик-технолог<br>Натуральная косметика и мыло с нуля<br>Беларусь 🇧🇾</p></div>
-        <div class="ft-col"><h4>Навигация</h4><a href="#" onclick="showPage('products');return false">Продукты</a><a href="#" onclick="showPage('about');return false">О нас</a><a href="#" onclick="showPage('reviews');return false">Отзывы</a></div>
+        <div class="ft-col"><h4>Навигация</h4><a href="#" onclick="showPage('products');return false">Продукты</a><a href="#" onclick="showPage('about');return false">О НЕЙ</a><a href="#" onclick="showPage('reviews');return false">Отзывы</a></div>
         <div class="ft-col"><h4>Связь</h4><a href="https://t.me/lab_spa" target="_blank">💬 t.me/lab_spa</a><a href="https://instagram.com/lab_spa_" target="_blank">📷 @lab_spa_</a></div>
     </div>
-    <div class="ft-bottom"><span>© 2025 Lab Spa • Виктория Богуш ✦</span><div class="ft-soc"><a href="https://instagram.com/lab_spa_" target="_blank">📷</a><a href="https://t.me/lab_spa" target="_blank">💬</a></div></div>
+    <div class="ft-bottom"><span>© 2026 Lab Spa • Виктория Богуш ✦</span><div class="ft-soc"><a href="https://instagram.com/lab_spa_" target="_blank">📷</a><a href="https://t.me/lab_spa" target="_blank">💬</a></div></div>
 </footer>
 
 <script>
 const TG_TOKEN='ВАШ_ТОКЕН_БОТА',TG_CHAT='ВАШ_CHAT_ID';
 const products=[
+{id:'sachet_big',name:'Аромасаше (большое)',vol:'',price:10,img:'https://i.ibb.co/Cs02tG08/image.png',tag:'🌸 аромат'},
+{id:'sachet_small',name:'Аромасаше (малое)',vol:'',price:6,img:'https://i.ibb.co/Cs02tG08/image.png',tag:'🌸 мини'},
+{id:'hydro_oil',name:'Гидрофильное масло',vol:'50 мл',price:12,img:'https://i.ibb.co/QjHc8QF5/image.png',tag:'🧴 очищение'},
+{id:'diffuser100',name:'Диффузор',vol:'100 мл',price:50,img:'https://i.ibb.co/G3NFv4Wn/image.png',tag:'🏠 аромат'},
+{id:'diffuser50',name:'Диффузор',vol:'50 мл',price:35,img:'https://i.ibb.co/G3NFv4Wn/image.png',tag:'🏠 мини'},
+{id:'body_butter',name:'Взбитое масло для тела',vol:'150 мл',price:18,img:'https://i.ibb.co/G3VyF0ds/image.png',tag:'✨ тело'},
 {id:'tonic',name:'Тоник для лица',vol:'120 мл',price:19,img:'https://i.ibb.co/m5zxc48w/image.png',tag:'🧴 уход'},
 {id:'balsam40',name:'Твёрдый бальзам',vol:'40 г',price:29,img:'https://i.ibb.co/ch554qTq/image.png',tag:'✨ уход'},
 {id:'balsam20',name:'Твёрдый бальзам',vol:'20 г',price:16,img:'https://i.ibb.co/ch554qTq/image.png',tag:'✨ мини'},
@@ -520,13 +498,7 @@ const products=[
 {id:'soap',name:'Мыло с нуля',vol:'110± г',price:14,img:'https://i.ibb.co/JjMVnTZG/image.png',tag:'🤲 мыло'},
 {id:'aftershave',name:'Лосьон после бритья',vol:'100 мл',price:13,img:'https://i.ibb.co/ymcTKcWP/image.png',tag:'🧔 для него'},
 {id:'hairmask',name:'Маска для волос',vol:'150 мл',price:17,img:'https://i.ibb.co/HTx6yHRB/image.png',tag:'💆 волосы'},
-{id:'sachet_big',name:'Аромасаше (большое)',vol:'',price:10,img:'https://i.ibb.co/G39DMc14/image.png',tag:'🌸 аромат'},
-{id:'sachet_small',name:'Аромасаше (малое)',vol:'',price:6,img:'https://i.ibb.co/G39DMc14/image.png',tag:'🌸 мини'},
-{id:'hydro_oil',name:'Гидрофильное масло',vol:'50 мл',price:12,img:'https://i.ibb.co/Z1K8mRN5/image.png',tag:'🧴 очищение'},
-{id:'diffuser100',name:'Диффузор',vol:'100 мл',price:50,img:'https://i.ibb.co/S4jf48Ns/image.png',tag:'🏠 аромат'},
-{id:'diffuser50',name:'Диффузор',vol:'50 мл',price:35,img:'https://i.ibb.co/S4jf48Ns/image.png',tag:'🏠 мини'},
-{id:'deo',name:'Дезодорант',vol:'15 мл',price:16,img:'https://i.ibb.co/gbRt58N4/image.png',tag:'🌿 натур'},
-{id:'body_butter',name:'Взбитое масло для тела',vol:'150 мл',price:18,img:'https://i.ibb.co/X6SCjxP/image.png',tag:'✨ тело'}
+{id:'deo',name:'Дезодорант',vol:'15 мл',price:16,img:'https://i.ibb.co/gbRt58N4/image.png',tag:'🌿 натур'}
 ];
 
 function renderProducts(){const g=document.getElementById('prodGrid');let h='';products.forEach((p,i)=>{const v=p.vol?`<div class="pvol">${p.vol}</div>`:'';const d=i%4;h+=`<div class="pc reveal rd${d+1}"><div class="pimg"><img src="${p.img}" alt="${p.name}" loading="lazy"><span class="ptag">${p.tag}</span></div><div class="pi"><h4>${p.name}</h4>${v}<div class="pb"><span class="pp">${p.price} <span class="cu">BYN</span></span><button class="ab" onclick="addCart(this,'${p.id}','${p.name}${p.vol?' ('+p.vol+')':''}',${p.price},'${p.img}')">+ В корзину</button></div></div></div>`});g.innerHTML=h}
@@ -555,16 +527,17 @@ function chQ(id,d){if(cart[id]){cart[id].qty+=d;if(cart[id].qty<=0)delete cart[i
 function updCart(){const w=document.getElementById('cItems'),keys=Object.keys(cart);let tq=0,tp=0;keys.forEach(k=>{tq+=cart[k].qty;tp+=cart[k].price*cart[k].qty});document.getElementById('cBdg').textContent=tq;document.getElementById('cTot').textContent=tp+' BYN';if(!keys.length){w.innerHTML='<div class="cart-empty"><span class="ce-icon">🌿</span><p>Корзина пуста</p></div>'}else{let h='';keys.forEach(k=>{const i=cart[k];h+=`<div class="ci"><div class="ci-img"><img src="${i.img}" alt=""></div><div class="ci-info"><h4>${i.name}</h4><span class="ci-price">${i.price} BYN</span></div><div class="ci-qty"><button class="qb" onclick="chQ('${k}',-1)">−</button><span class="qn">${i.qty}</span><button class="qb" onclick="chQ('${k}',1)">+</button></div><button class="ci-rm" onclick="rmI('${k}')">✕</button></div>`});w.innerHTML=h}document.querySelectorAll('.ab').forEach(b=>{b.textContent='+ В корзину';b.classList.remove('added')})}
 function toggleCart(){document.getElementById('cPn').classList.toggle('open');document.getElementById('cOv').classList.toggle('open')}
 
-function swAuth(t){document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('active'));document.getElementById('codeStep').classList.remove('show');document.getElementById('authSt').classList.remove('show');if(t==='phone'){document.getElementById('afPhone').style.display='flex';document.getElementById('afIG').style.display='none';document.querySelectorAll('.auth-tab')[0].classList.add('active')}else{document.getElementById('afPhone').style.display='none';document.getElementById('afIG').style.display='flex';document.querySelectorAll('.auth-tab')[1].classList.add('active')}}
+function swAuth(t){document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('active'));document.getElementById('codeStep').classList.remove('show');document.getElementById('authSt').classList.remove('show');document.getElementById('authTabs').style.display='flex';if(t==='phone'){document.getElementById('afPhone').style.display='flex';document.getElementById('afIG').style.display='none';document.querySelectorAll('.auth-tab')[0].classList.add('active')}else{document.getElementById('afPhone').style.display='none';document.getElementById('afIG').style.display='flex';document.querySelectorAll('.auth-tab')[1].classList.add('active')}}
 function sendCode(){const ph=document.getElementById('inpPhone').value.trim(),nm=document.getElementById('inpName').value.trim();if(!ph||ph.length<10){showAS('Введите корректный номер','err');return}if(!nm){showAS('Введите имя','err');return};genCode=String(Math.floor(1000+Math.random()*9000));console.log('📱 Код:',genCode);sendTG(`📱 *Верификация*\n👤 ${nm}\n📞 ${ph}\n🔑 Код: \`${genCode}\``);document.getElementById('codeDest').textContent=ph;document.getElementById('afPhone').style.display='none';document.getElementById('authTabs').style.display='none';document.getElementById('codeStep').classList.add('show');showAS('Код отправлен!','ok');startTimer();user={type:'phone',contact:ph,name:nm,verified:false};document.getElementById('c1').focus()}
 function codeNext(el,next){if(el.value.length===1){const n=document.getElementById(next);if(n)n.focus()}}
-function verifyCode(){const entered=['c1','c2','c3','c4'].map(id=>document.getElementById(id).value).join('');if(entered.length<4)return;if(entered===genCode){user.verified=true;showAS('✅ Успешно!','ok');document.getElementById('uName').textContent=user.name;document.getElementById('upill').classList.add('show');setTimeout(()=>{closeAuth();resetAuth()},1200)}else{showAS('❌ Неверный код','err');['c1','c2','c3','c4'].forEach(id=>{document.getElementById(id).value=''});document.getElementById('c1').focus()}}
+function verifyCode(){const entered=['c1','c2','c3','c4'].map(id=>document.getElementById(id).value).join('');if(entered.length<4)return;if(entered===genCode){user.verified=true;showAS('✅ Успешно!','ok');document.getElementById('uName').textContent=user.name;document.getElementById('upill').classList.add('show');document.getElementById('navAuth').style.display='none';setTimeout(()=>{closeAuth();resetAuth()},1200)}else{showAS('❌ Неверный код','err');['c1','c2','c3','c4'].forEach(id=>{document.getElementById(id).value=''});document.getElementById('c1').focus()}}
 function startTimer(){let s=60;document.getElementById('timerSec').textContent=s;document.getElementById('codeResend').disabled=true;if(codeTimer)clearInterval(codeTimer);codeTimer=setInterval(()=>{s--;document.getElementById('timerSec').textContent=s;if(s<=0){clearInterval(codeTimer);document.getElementById('codeResend').disabled=false;document.getElementById('codeTimer').textContent='Можно отправить снова'}},1000)}
 function resendCode(){genCode=String(Math.floor(1000+Math.random()*9000));console.log('📱 Новый:',genCode);sendTG(`📱 *Повтор*\n📞 ${user.contact}\n🔑 \`${genCode}\``);showAS('Новый код!','ok');startTimer();['c1','c2','c3','c4'].forEach(id=>{document.getElementById(id).value=''});document.getElementById('c1').focus()}
-function doAuthIG(){const ig=document.getElementById('inpIG').value.trim(),nm=document.getElementById('inpIGName').value.trim();if(!ig){showAS('Введите Instagram','err');return}if(!nm){showAS('Введите имя','err');return};user={type:'instagram',contact:ig,name:nm,verified:true};showAS('✅ Добро пожаловать!','ok');document.getElementById('uName').textContent=nm;document.getElementById('upill').classList.add('show');setTimeout(()=>{closeAuth();resetAuth()},1200)}
+function doAuthIG(){const ig=document.getElementById('inpIG').value.trim(),nm=document.getElementById('inpIGName').value.trim();if(!ig){showAS('Введите Instagram','err');return}if(!nm){showAS('Введите имя','err');return};user={type:'instagram',contact:ig,name:nm,verified:true};showAS('✅ Добро пожаловать!','ok');document.getElementById('uName').textContent=nm;document.getElementById('upill').classList.add('show');document.getElementById('navAuth').style.display='none';setTimeout(()=>{closeAuth();resetAuth()},1200)}
 function showAS(msg,type){const s=document.getElementById('authSt');s.textContent=msg;s.className='auth-status show '+(type==='err'?'err':'ok')}
 function openAuth(){document.getElementById('authM').classList.add('open')}
 function closeAuth(){document.getElementById('authM').classList.remove('open')}
+function cancelAuth(){swAuth('phone');document.getElementById('codeStep').classList.remove('show');if(codeTimer)clearInterval(codeTimer)}
 function resetAuth(){document.getElementById('codeStep').classList.remove('show');document.getElementById('afPhone').style.display='flex';document.getElementById('authTabs').style.display='flex';document.getElementById('authSt').classList.remove('show');['inpPhone','inpName','inpIG','inpIGName','c1','c2','c3','c4'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''})}
 function checkout(){if(!Object.keys(cart).length)return;if(!user||!user.verified){openAuth();return};const on='LS-'+Math.floor(1000+Math.random()*9000);let tp=0,txt=`👩‍🔬 *НОВЫЙ ЗАКАЗ Lab Spa*\n\n📋 *Номер:* \`${on}\`\n👤 *Клиент:* ${user.name}\n📞 *Контакт:* ${user.contact} (${user.type})\n\n🛒 *Состав:*\n`;Object.keys(cart).forEach(k=>{const i=cart[k],s=i.price*i.qty;tp+=s;txt+=`  • ${i.name} × ${i.qty} = ${s} BYN\n`});txt+=`\n💰 *Итого: ${tp} BYN*\n⏰ ${new Date().toLocaleString('ru-RU')}`;sendTG(txt);document.getElementById('ordNum').textContent=on;document.getElementById('ordM').classList.add('open');toggleCart();cart={};updCart()}
 function sendTG(t){if(TG_TOKEN==='ВАШ_ТОКЕН_БОТА'){console.log('📨',t);return}fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT,text:t,parse_mode:'Markdown'})}).then(r=>r.json()).then(d=>console.log('✅',d)).catch(e=>console.error('❌',e))}
